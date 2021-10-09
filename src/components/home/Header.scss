@@ -1,0 +1,9 @@
+#Header {
+    border-color: hsl(217, 16%, 45%);
+    .txt-score {
+        color: hsl(229, 25%, 31%);
+        &-label {
+            color: hsl(229, 64%, 46%);
+        }
+    }
+}
