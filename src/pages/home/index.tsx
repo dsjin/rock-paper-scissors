@@ -6,7 +6,10 @@ import Game from '../../components/home/Game'
 
 const Home = () => {
   return (
-    <div id="Home">
+    <div
+      id="Home"
+      className="w-screen min-h-screen"
+    >
       <div
         className="flex flex-col items-center justify-center"
       >

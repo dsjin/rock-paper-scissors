@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <div
       id="Header"
-      className="p-4 border-2 border-solid rounded-xl text-white w-6/12 mt-10"
+      className="p-4 border-2 border-solid rounded-xl text-white w-screen lg:w-6/12 mt-10"
     >
       <div
         className="flex justify-between"
@@ -17,7 +17,7 @@ const Header = () => {
           className="mr-5"
         />
         <div
-          className="flex flex-col justify-center items-center bg-white px-12 rounded-xl"
+          className="flex flex-col justify-center items-center bg-white px-8 lg:px-12 rounded-xl"
         >
           <span
             className="txt-score-label text-lg"
@@ -25,7 +25,7 @@ const Header = () => {
             score
           </span>
           <span
-            className="txt-score text-6xl font-bold"
+            className="txt-score text-5xl lg:text-6xl font-bold"
           >
             12
           </span>
