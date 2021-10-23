@@ -5,8 +5,9 @@ import { IActionButton } from 'src/interfaces/components/home/ActionButton'
 import bgTriangle from '../../assets/images/bg-triangle.svg'
 import ActionButton from './ActionButton'
 import ActionDisplay from './ActionDisplay'
+import { IGame } from 'src/interfaces/components/home/Game'
 
-const Game = () => {
+const Game = (props: IGame) => {
 
   const [ selectPhase, setSelectPhase ] = useState({
     selectedAction: '',
@@ -16,6 +17,12 @@ const Game = () => {
   const [ theHouseSelect, setTheHouseSelect ] = useState({
     selectedAction: ''
   })
+
+  const [ resultMsg, setResultMsg ] = useState('YOU WIN')
+
+  const [ theHouseWin, setTheHouseWin ] = useState(false)
+
+  const [ playerWin, setPlayerWin ] = useState(false)
 
   useEffect(() => {
     if (selectPhase.selectedAction) {
@@ -27,27 +34,48 @@ const Game = () => {
     }
   }, [selectPhase])
 
+  useEffect(() => {
+    if (theHouseSelect.selectedAction && selectPhase.selectedAction) {
+      if (theHouseSelect.selectedAction === selectPhase.selectedAction) {
+        props.scoreCallback(0)
+        setResultMsg('DRAW')
+      } else if (
+        (selectPhase.selectedAction === 'paper' && theHouseSelect.selectedAction === 'rock') ||
+        (selectPhase.selectedAction === 'scissors' && theHouseSelect.selectedAction === 'paper') ||
+        (selectPhase.selectedAction === 'rock' && theHouseSelect.selectedAction === 'scissors')
+      ) {
+        props.scoreCallback(1)
+        setResultMsg('YOU WIN')
+        setPlayerWin(true)
+      } else {
+        props.scoreCallback(-1)
+        setResultMsg('YOU LOSE')
+        setTheHouseWin(true)
+      }
+    }
+  }, [theHouseSelect])
+
 
   const actionList: Array<IActionButton> = [
     {
       actionName: 'paper',
       color: 'radial-gradient(ellipse at top, hsl(230, 89%, 65%), hsl(230, 89%, 62%))',
       src: 'icon-paper.svg',
-      class: 'absolute -top-10 -left-10 lg:-top-20 lg:-left-20',
+      class: 'absolute -top-10 -left-10 xl:-top-20 xl:-left-20',
       action: setSelectPhase
     },
     {
       actionName: 'scissors',
       color: 'radial-gradient(ellipse at top, hsl(39, 89%, 49%), hsl(40, 84%, 53%))',
       src: 'icon-scissors.svg',
-      class: 'absolute -top-10 -right-10 lg:-top-20 lg:-right-20',
+      class: 'absolute -top-10 -right-10 xl:-top-20 xl:-right-20',
       action: setSelectPhase
     },
     {
       actionName: 'rock',
       color: 'radial-gradient(ellipse at top, hsl(349, 71%, 52%), hsl(349, 70%, 56%))',
       src: 'icon-rock.svg',
-      class: 'absolute inset-x-20 -bottom-10 lg:inset-x-14 lg:-bottom-20',
+      class: 'absolute inset-x-20 -bottom-10 xl:inset-x-14 xl:-bottom-20',
       action: setSelectPhase
     }
   ]
@@ -57,19 +85,19 @@ const Game = () => {
       actionName: 'paper',
       color: 'radial-gradient(ellipse at top, hsl(230, 89%, 65%), hsl(230, 89%, 62%))',
       src: 'icon-paper.svg',
-      class: 'absolute -top-10 left-10 lg:-top-10 lg:left-0'
+      class: 'absolute -top-10 left-10 xl:-top-10 xl:left-0'
     },
     'scissors': {
       actionName: 'scissors',
       color: 'radial-gradient(ellipse at top, hsl(39, 89%, 49%), hsl(40, 84%, 53%))',
       src: 'icon-scissors.svg',
-      class: 'absolute -top-10 left-10 lg:-top-10 lg:left-0'
+      class: 'absolute -top-10 left-10 xl:-top-10 xl:left-0'
     },
     'rock': {
       actionName: 'rock',
       color: 'radial-gradient(ellipse at top, hsl(349, 71%, 52%), hsl(349, 70%, 56%))',
       src: 'icon-rock.svg',
-      class: 'absolute -top-10 left-10 lg:-top-10 lg:left-0'
+      class: 'absolute -top-10 left-10 xl:-top-10 xl:left-0'
     }
   }
 
@@ -102,7 +130,7 @@ const Game = () => {
           { actionElms }
         </motion.div> : (
           <motion.div
-            className="mt-44 relative w-screen lg:w-6/12"
+            className="mt-44 relative w-screen xl:w-6/12"
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
@@ -113,7 +141,7 @@ const Game = () => {
               }}
             />
             <motion.p
-              className="absolute -top-24 left-16 lg:-top-24 lg:left-14 text-white opacity-0"
+              className="absolute -top-24 left-16 xl:-top-24 xl:left-14 text-white opacity-0"
               animate={{ opacity: 100 }}
               transition={{ ease: [0.6, 0.01, -0.05, 0.9],
                 duration: 10 }}
@@ -121,7 +149,7 @@ const Game = () => {
               YOU PICKED
             </motion.p>
             <motion.p
-              className="absolute -top-24 right-10 lg:-top-24 lg:right-10 text-white opacity-0"
+              className="absolute -top-24 right-10 xl:-top-24 xl:right-10 text-white opacity-0"
               animate={{ opacity: 100 }}
               transition={{ ease: [0.6, 0.01, -0.05, 0.9],
                 duration: 10 }}
@@ -133,10 +161,11 @@ const Game = () => {
               color={(actionDisplay as any)[selectPhase.selectedAction].color}
               src={(actionDisplay as any)[selectPhase.selectedAction].src}
               class={(actionDisplay as any)[selectPhase.selectedAction].class}
+              isWinner={playerWin}
             />
             {
               !theHouseSelect.selectedAction ? (<motion.div
-                className="flex justify-center items-center rounded-full h-32 w-32 lg:h-48 lg:w-48 bg-gray-700 absolute -top-10 right-10 lg:-top-10 lg:right-0"
+                className="flex justify-center items-center rounded-full h-32 w-32 xl:h-48 xl:w-48 bg-gray-700 absolute -top-10 right-10 xl:-top-10 xl:right-0"
                 animate={{ scale: [1.0, 1.1, 1.0], opacity: [1, 0.6, 1] }}
                 transition={{ ease: "easeInOut", duration: 2, repeat: Infinity }}
               />) : (
@@ -144,10 +173,48 @@ const Game = () => {
                   actionName={`${(actionDisplay as any)[theHouseSelect.selectedAction].actionName}-oppernent`}
                   color={(actionDisplay as any)[theHouseSelect.selectedAction].color}
                   src={(actionDisplay as any)[theHouseSelect.selectedAction].src}
-                  class="absolute -top-10 right-10 lg:-top-10 lg:right-0"
+                  class="absolute -top-10 right-10 xl:-top-10 xl:right-0"
+                  isWinner={theHouseWin}
                 />
               )
             }
+            <AnimatePresence>
+              {
+                theHouseSelect.selectedAction ? (
+                  <div
+                    className="flex flex-col items-center -mt-36 xl:-mt-72"
+                  >
+                    <motion.div
+                      animate={{ scale: [0, 1], opacity: [0, 1] }}
+                      transition={{ ease: "easeInOut", duration: 0.8}}
+                      className="text-white text-6xl font-bold"
+                    >
+                      { resultMsg }
+                    </motion.div>
+                    <motion.div
+                      animate={{ scale: [0, 1], opacity: [0, 1] }}
+                      transition={{ ease: "easeInOut", duration: 0.8}}
+                      className="bg-white rounded-xl py-3 px-20 text-xl mt-6 tracking-widest cursor-pointer"
+                      onClick={
+                        () => {
+                          setSelectPhase({
+                            selectedAction: '',
+                            visible: true
+                          })
+                          setTheHouseSelect({
+                            selectedAction: ''
+                          })
+                          setTheHouseWin(false)
+                          setPlayerWin(false)
+                        }
+                      }
+                    >
+                      PLAY AGAIN
+                    </motion.div>
+                  </div>
+                ) : null
+              }
+            </AnimatePresence>
           </motion.div>
         )}
       </AnimatePresence>

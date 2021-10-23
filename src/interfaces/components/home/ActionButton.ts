@@ -7,4 +7,5 @@ export interface IActionButton {
     selectedAction: string,
     visible: boolean
   }) => void
+  transition?: any
 }

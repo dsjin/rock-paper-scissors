@@ -2,8 +2,9 @@ import React from "react"
 
 import './Header.scss'
 import Logo from '../../assets/images/logo.svg'
+import { IHeader } from "../../interfaces/components/home/Header"
 
-const Header = () => {
+const Header = (props: IHeader) => {
   return (
     <div
       id="Header"
@@ -27,7 +28,7 @@ const Header = () => {
           <span
             className="txt-score text-5xl lg:text-6xl font-bold"
           >
-            12
+            { props.score }
           </span>
         </div>
       </div>

@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './index.scss'
 
 import Header from '../../components/home/Header'
 import Game from '../../components/home/Game'
 
 const Home = () => {
+
+  const [score, setScore] = useState(0)
+
   return (
     <div
       id="Home"
@@ -13,8 +16,12 @@ const Home = () => {
       <div
         className="flex flex-col items-center justify-center"
       >
-        <Header />
-        <Game />
+        <Header
+          score={score}
+        />
+        <Game
+          scoreCallback={(value: number) => setScore(score + value)}
+        />
       </div>
     </div>
   )

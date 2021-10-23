@@ -3,4 +3,5 @@ export interface IActionDisplay {
   color: string
   src: string
   class: string
+  isWinner: Boolean
 }
