@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 import { motion } from 'framer-motion'
 
@@ -39,7 +39,7 @@ const ActionButton = (props: IActionButton) => {
       <div
         className="flex justify-center items-center rounded-full h-24 w-24 xl:h-36 xl:w-36 bg-white"
       >
-        <img src={require(`../../assets/images/${props.src}`).default} />
+        <img src={require(`../../assets/images/${props.src}`).default} alt="action" />
       </div>
     </motion.div>
   )

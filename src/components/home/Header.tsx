@@ -16,6 +16,7 @@ const Header = (props: IHeader) => {
         <img
           src={Logo}
           className="mr-5"
+          alt="logo"
         />
         <div
           className="flex flex-col justify-center items-center bg-white px-8 lg:px-12 rounded-xl"

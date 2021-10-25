@@ -53,8 +53,8 @@ const Game = (props: IGame) => {
         setTheHouseWin(true)
       }
     }
+  // eslint-disable-next-line
   }, [theHouseSelect])
-
 
   const actionList: Array<IActionButton> = [
     {
@@ -126,6 +126,7 @@ const Game = (props: IGame) => {
         >
           <img
             src={bgTriangle}
+            alt="bgTriangle"
           />
           { actionElms }
         </motion.div> : (
@@ -139,6 +140,7 @@ const Game = (props: IGame) => {
               style={{
                 opacity: 0
               }}
+              alt="bgTriangle"
             />
             <motion.p
               className="absolute -top-24 left-16 xl:-top-24 xl:left-14 text-white opacity-0"
