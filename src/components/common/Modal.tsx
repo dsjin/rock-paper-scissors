@@ -8,7 +8,7 @@ import { IModal } from 'src/interfaces/components/common/Modal'
 const Modal = (props: IModal) => {
   return (
     <motion.div
-      className="bg-white rounded-md p-5"
+      className="bg-white rounded-md p-5 w-full h-full xl:w-auto xl:h-auto"
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0 }}
@@ -20,22 +20,36 @@ const Modal = (props: IModal) => {
       }
     >
       <div
-        className="flex justify-between items-center mb-10"
+        className="flex flex-col justify-between items-center h-full"
       >
-        <span
-          className="text-4xl"
+        <div
+          className="flex justify-center xl:justify-between xl:items-center mb-10 mt-10 xl:mt-0 xl:w-full"
         >
-          RULES
-        </span>
-        <img 
-          className="cursor-pointer w-4 h-4"
-          src={iconClose}
-          alt="CloseButton"
-          onClick={props.closeCallback}
-        />
-      </div>
-      <div>
-        <img src={imageRules} alt="ImageRules" />
+          <span
+            className="text-4xl"
+          >
+            RULES
+          </span>
+          <img 
+            className="cursor-pointer w-4 h-4 hidden xl:block"
+            src={iconClose}
+            alt="CloseButton"
+            onClick={props.closeCallback}
+          />
+        </div>
+        <div>
+          <img src={imageRules} alt="ImageRules" />
+        </div>
+        <div
+          className="block xl:hidden mb-6"
+        >
+          <img 
+            className="cursor-pointer w-6 h-6"
+            src={iconClose}
+            alt="CloseButton"
+            onClick={props.closeCallback}
+          />
+        </div>
       </div>
     </motion.div>
   )

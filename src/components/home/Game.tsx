@@ -119,7 +119,7 @@ const Game = (props: IGame) => {
     >
       <AnimatePresence>
         {selectPhase.visible ? <motion.div
-          className="mt-44 relative"
+          className="mt-20 xl:mt-44 relative"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

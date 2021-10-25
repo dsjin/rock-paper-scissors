@@ -31,7 +31,7 @@ const Home = () => {
         {
           modalOpen && (
               <div
-                className="absolute top-0 left-0 bottom-0 right-0 bg-gray-900 z-10 bg-opacity-75 flex justify-center items-center"
+                className="absolute top-0 left-0 bottom-0 right-0 xl:bg-gray-900 z-10 xl:bg-opacity-75 flex justify-center items-center"
               >
                 <Modal
                   closeCallback={() => setModalOpen(false)}
@@ -40,21 +40,30 @@ const Home = () => {
           )
         }
       </AnimatePresence>
-      <motion.div
-        className="absolute bottom-5 xl:right-5 bg-transparent border-2 border-white rounded-xl py-3 px-14 text-xl mt-6 tracking-wider cursor-pointer text-white hover:text-black hover:bg-white"
-        whileHover={{ scale: 1.1}}
-        whileTap={{ scale: 0.8 }}
-        transition={
+      <div
+        className="absolute bottom-1 xl:bottom-5 left-1/2 xl:left-auto xl:right-5"
+        style={
           {
-            type: "spring",
-            stiffness: 700,
-            damping: 100
+            transform: 'translate(-50%, -50%)'
           }
         }
-        onClick={() => setModalOpen(true)}
       >
-        RULES
-      </motion.div>
+        <motion.div
+          className="bg-transparent border-2 border-white rounded-xl w-max py-3 px-14 text-xl tracking-wider cursor-pointer text-white hover:text-black hover:bg-white"
+          whileHover={{ scale: 1.1}}
+          whileTap={{ scale: 0.8 }}
+          transition={
+            {
+              type: "spring",
+              stiffness: 700,
+              damping: 100
+            }
+          }
+          onClick={() => setModalOpen(true)}
+        >
+          RULES
+        </motion.div>
+      </div>
     </div>
   )
 }
